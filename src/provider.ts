@@ -59,6 +59,11 @@ type AccountsChangedListener = (accounts: string[]) => void
 export interface IMinaProvider {
   request(args: RequestArguments): Promise<unknown>
   isConnected(): boolean
+  sendPayment(args: SendPaymentArguments): Promise<{ hash: string }>
+  sendStakeDelegation(args: SendStakeDelegationArguments): Promise<{ hash: string }>
+  signMessage(args: SignMessageArguments): Promise<SignedData>
+  verifyMessage(args: VerifyMessageArguments): Promise<boolean>
+  requestAccounts(): Promise<string[]>
 
   // Events
   on(eventName: 'connect', listener: ConnectListener): this
@@ -111,7 +116,7 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
     return this.request({method: DAppActions.mina_signMessage, params: args})
   }
 
-  public async verifyMessage(args: VerifyMessageArguments){
+  public async verifyMessage(args: VerifyMessageArguments): Promise<boolean>{
     return this.request({method: DAppActions.mina_verifyMessage, params: args})
   }
 
