@@ -65,7 +65,7 @@ interface SignedData {
     scalar: string
   }
 }
-mina.signMessage(args: SignMessageArguments): Promise<boolean>;
+mina.signMessage(args: SignMessageArguments): Promise<SignedData>;
 ```
 
 ### mina.verifyMessage
