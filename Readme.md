@@ -19,6 +19,15 @@ interface RequestArguments {
 
 ethereum.request(args: RequestArguments): Promise<unknown>;
 ```
+#### supported methods
+* mina_requestAccounts
+* mina_sendPayment
+* mina_sendStakeDelegation
+* mina_signMessage
+* mina_verifyMessage
+
+You can find the corresponding parameter format in the later methods
+ 
 
 ### mina.requestAccounts
 
