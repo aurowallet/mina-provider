@@ -43,7 +43,12 @@ interface SignedData {
   }
 }
 
-export interface SignMessageArguments extends SignedData {
+export interface SignMessageArguments {
+  from: string,
+  message: string
+}
+
+export interface VerifyMessageArguments extends SignedData {
 
 }
 
@@ -57,9 +62,11 @@ export interface IMinaProvider {
 
   // Events
   on(eventName: 'connect', listener: ConnectListener): this
+  on(eventName: 'disconnect', listener: ConnectListener): this
   on(eventName: 'chainChanged', listener: ChainChangedListener): this
   on(eventName: 'accountsChanged', listener: AccountsChangedListener): this
 
+  removeListener(eventName: 'disconnect', listener: ConnectListener): this
   removeListener(eventName: 'connect', listener: ConnectListener): this
   removeListener(
     eventName: 'chainChanged',
@@ -104,7 +111,7 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
     return this.request({method: DAppActions.mina_signMessage, params: args})
   }
 
-  public async verifyMessage(args: SendPaymentArguments){
+  public async verifyMessage(args: VerifyMessageArguments){
     return this.request({method: DAppActions.mina_verifyMessage, params: args})
   }
 
@@ -115,8 +122,7 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
   private initEvents() {
     this.channel.on('connect', this.onConnect.bind(this))
     this.channel.on('disconnect', this.onDisconnect.bind(this))
-    // this.channel.on('chainChanged', this.onChainChanged.bind(this))
-    // this.channel.on('networkChanged', this.onNetworkChanged.bind(this))
+    this.channel.on('chainChanged', this.onChainChanged.bind(this))
     this.channel.on(
       'accountsChanged',
       this.emitAccountsChanged.bind(this)

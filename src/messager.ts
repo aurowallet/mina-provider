@@ -2,12 +2,6 @@ import { v4 as randomUUID } from "uuid";
 import {getSiteIcon} from "./utils";
 import MessageChannel from "./lib/messageChannel";
 
-interface ProviderError extends Error {
-  message: string;
-  code: number;
-  data?: unknown;
-}
-
 interface response {
   error: Error,
   result: unknown
