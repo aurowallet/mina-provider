@@ -26,6 +26,11 @@ export const mina_signMessage = "mina_signMessage"
  */
 export const mina_verifyMessage = "mina_verifyMessage"
 
+/**
+ * reuqest network
+ */
+export const mina_requestNetwork = "mina_requestNetwork"
+
 
 export const DAppActions = {
   mina_requestAccounts,
@@ -33,4 +38,5 @@ export const DAppActions = {
   mina_sendStakeDelegation,
   mina_signMessage,
   mina_verifyMessage,
+  mina_requestNetwork
 }
