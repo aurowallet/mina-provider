@@ -64,6 +64,7 @@ export interface IMinaProvider {
   signMessage(args: SignMessageArguments): Promise<SignedData>
   verifyMessage(args: VerifyMessageArguments): Promise<boolean>
   requestAccounts(): Promise<string[]>
+  requestNetwork(): Promise<string>
 
   // Events
   on(eventName: 'connect', listener: ConnectListener): this
@@ -124,10 +125,15 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
     return this.request({method: DAppActions.mina_requestAccounts})
   }
 
+  public async requestNetwork(): Promise<string> {
+    return this.request({method: DAppActions.mina_requestNetwork})
+  }
+
   private initEvents() {
     this.channel.on('connect', this.onConnect.bind(this))
     this.channel.on('disconnect', this.onDisconnect.bind(this))
     this.channel.on('chainChanged', this.onChainChanged.bind(this))
+    this.channel.on('networkChanged', this.onNetworkChanged.bind(this))
     this.channel.on(
       'accountsChanged',
       this.emitAccountsChanged.bind(this)
@@ -148,8 +154,8 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
     this.emit('chainChanged', chainId)
   }
 
-  private onNetworkChanged(networkId: string): void {
-    this.emit('networkChanged', networkId)
+  private onNetworkChanged(network: string): void {
+    this.emit('networkChanged', network)
   }
 
   private emitAccountsChanged(accounts: string[]): void {

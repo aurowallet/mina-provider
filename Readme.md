@@ -112,5 +112,5 @@ mina.on('disconnect', handler: (error: ProviderError) => void);
 ### accountsChanged
 
 ```typescript
-ethereum.on('accountsChanged', handler: (accounts: Array<string>) => void);
+mina.on('accountsChanged', handler: (accounts: Array<string>) => void);
 ```
