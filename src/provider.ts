@@ -125,7 +125,7 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
     return this.request({method: DAppActions.mina_requestAccounts})
   }
 
-  public async requestNetwork(): Promise<string> {
+  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | 'Unhnown'> {
     return this.request({method: DAppActions.mina_requestNetwork})
   }
 
