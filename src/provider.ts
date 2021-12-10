@@ -26,12 +26,14 @@ interface RequestArguments {
 export interface SendPaymentArguments {
   from: string,
   to: string,
-  amount: number
+  amount: number,
+  memo?:string
 }
 
 export interface SendStakeDelegationArguments {
   from: string,
-  to: string
+  to: string,
+  memo?:string
 }
 
 interface SignedData {
