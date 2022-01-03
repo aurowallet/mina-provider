@@ -24,14 +24,12 @@ interface RequestArguments {
 }
 
 export interface SendPaymentArguments {
-  from: string,
   to: string,
   amount: number,
   memo?:string
 }
 
 export interface SendStakeDelegationArguments {
-  from: string,
   to: string,
   memo?:string
 }
@@ -46,7 +44,6 @@ interface SignedData {
 }
 
 export interface SignMessageArguments {
-  from: string,
   message: string
 }
 
