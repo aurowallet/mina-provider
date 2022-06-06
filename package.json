@@ -1,5 +1,5 @@
 {
-  "name": "auro-web3-provider",
+  "name": "@aurowallet/mina-provider",
   "version": "0.0.8",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -9,6 +9,11 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
+  "homepage": "https://www.aurowallet.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aurowallet/mina-provider.git"
+  },
   "scripts": {
     "build": "tsc"
   },

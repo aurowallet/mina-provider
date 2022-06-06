@@ -1,3 +1,11 @@
+import type {
+  SignableData,
+  SendPartyArguments,
+  SendPaymentArguments,
+  SendStakeDelegationArguments,
+  SignMessageArguments
+} from "../TSTypes";
+
 /**
  * get Site Icon from window
  * @param {*} window
@@ -17,4 +25,27 @@ export function getSiteIcon (window: Window) {
   }
 
   return null
+}
+
+function hasCommonProperties(data: SignableData) {
+  return (
+    data.hasOwnProperty("to") &&
+    data.hasOwnProperty("from")
+  );
+}
+
+export function isParty(p: SendPartyArguments): p is SendPartyArguments {
+  return p.hasOwnProperty("parties");
+}
+
+export function isPayment(p: SignableData): p is SendPaymentArguments {
+  return hasCommonProperties(p) && p.hasOwnProperty("amount");
+}
+
+export function isStakeDelegation(p: SignableData): p is SendStakeDelegationArguments {
+  return hasCommonProperties(p) && !p.hasOwnProperty("amount");
+}
+
+export function isMessage(p: SignableData): p is SignMessageArguments {
+  return p.hasOwnProperty("message");
 }
