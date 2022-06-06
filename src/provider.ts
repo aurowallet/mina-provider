@@ -2,47 +2,19 @@ import MessageChannel from "./lib/messageChannel";
 import Messenger from "./messager";
 import EventEmitter from 'eventemitter3';
 import {DAppActions} from "./constant";
-
-/**
- * code 4001 The request was rejected by the user
- * code -32602 The parameters were invalid
- * code -32603 Internal error
- */
-interface ProviderError extends Error {
-  message: string;
-  code: number;
-  data?: unknown;
-}
-
-interface ConnectInfo {
-  chainId: string;
-}
-
-interface RequestArguments {
-  method: string;
-  params?: unknown[] | object;
-}
-
-export interface SendPaymentArguments {
-  to: string,
-  amount: number,
-  memo?:string
-}
-
-export interface SendStakeDelegationArguments {
-  to: string,
-  memo?:string
-}
-
-interface SignedData {
-  publicKey: string,
-  payload: string,
-  signature: {
-    field: string,
-    scalar: string
-  }
-}
-
+import {
+  ConnectInfo,
+  ProviderError,
+  RequestArguments,
+  SendPartyArguments,
+  SendPaymentArguments,
+  SendStakeDelegationArguments,
+  SendTransactionResult,
+  SignableData,
+  SignedData,
+  SignTransactionResult
+} from "./TSTypes";
+import {isMessage, isParty, isPayment, isStakeDelegation} from "./utils";
 export interface SignMessageArguments {
   message: string
 }
@@ -104,16 +76,20 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
     return this.connectedFlag;
   }
 
-  public async sendPayment(args: SendPaymentArguments): Promise<{ hash: string }>  {
+  public async sendPayment(args: SendPaymentArguments): Promise<SendTransactionResult>  {
     return this.request({method: DAppActions.mina_sendPayment, params: args})
   }
 
-  public async sendStakeDelegation(args: SendStakeDelegationArguments): Promise<{ hash: string }> {
+  public async sendStakeDelegation(args: SendStakeDelegationArguments): Promise<SendTransactionResult> {
     return this.request({method: DAppActions.mina_sendStakeDelegation, params: args})
   }
 
   public async signMessage(args: SignMessageArguments): Promise<SignedData> {
     return this.request({method: DAppActions.mina_signMessage, params: args})
+  }
+
+  public async sendParty(args: SendPartyArguments): Promise<SendTransactionResult>  {
+    return this.request({method: DAppActions.mina_sendParty, params: args})
   }
 
   public async verifyMessage(args: VerifyMessageArguments): Promise<boolean>{
@@ -124,8 +100,25 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
     return this.request({method: DAppActions.mina_requestAccounts})
   }
 
-  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | 'Unhnown'> {
+  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley-QA" |'Unhnown'> {
     return this.request({method: DAppActions.mina_requestNetwork})
+  }
+
+  public async signTransaction(payload: SignableData): Promise<SignTransactionResult> {
+    if (isMessage(payload)) {
+      return this.signMessage(payload)
+    }
+    if (isPayment(payload)) {
+      return this.sendPayment(payload);
+    }
+    if (isStakeDelegation(payload)) {
+      return this.sendStakeDelegation(payload);
+    }
+    if (isParty(payload)) {
+      return this.sendParty(payload);
+    } else {
+      throw new Error(`Expected signable payload, got '${payload}'.`);
+    }
   }
 
   private initEvents() {

@@ -1,6 +1,6 @@
 {
-  "name": "auro-web3-provider",
-  "version": "0.0.8",
+  "name": "@aurowallet/mina-provider",
+  "version": "0.0.9",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "licenses": [
@@ -9,6 +9,11 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
+  "homepage": "https://www.aurowallet.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aurowallet/mina-provider.git"
+  },
   "scripts": {
     "build": "tsc"
   },
@@ -27,5 +32,9 @@
     "@babel/register": "7.5.5",
     "@babel/runtime": "7.12.5",
     "typescript": "^4.4.4"
+  },
+  "description": "[API documents](https://docs.aurowallet.com/general/reference/api-reference/mina-provider-api)",
+  "bugs": {
+    "url": "https://github.com/aurowallet/mina-provider/issues"
   }
 }
