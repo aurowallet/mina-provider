@@ -34,7 +34,6 @@ export type SendPartyArguments  = {
   readonly parties: any;
   readonly feePayer?: {
     readonly fee?: number;
-    readonly nonce?: number;
     readonly memo?: string;
   };
 }
