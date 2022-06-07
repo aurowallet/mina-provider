@@ -1,12 +1,12 @@
 {
   "name": "@aurowallet/mina-provider",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "licenses": [
     {
       "type": "Apache-2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
   "homepage": "https://www.aurowallet.com",
@@ -29,7 +29,7 @@
     "@babel/plugin-transform-runtime": "7.12.1",
     "@babel/preset-env": "7.12.7",
     "@babel/preset-react": "7.12.7",
-    "@babel/register": "7.5.5",
+    "@babel/register": "7.7.0",
     "@babel/runtime": "7.12.5",
     "typescript": "^4.4.4"
   },
