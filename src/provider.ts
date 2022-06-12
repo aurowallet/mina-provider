@@ -1,71 +1,34 @@
-import MessageChannel from "./lib/messageChannel";
-import Messenger from "./messager";
-import EventEmitter from 'eventemitter3';
-import {DAppActions} from "./constant";
+import MessageChannel from "./lib/messageChannel"
+import Messenger from "./messager"
+import EventEmitter from 'eventemitter3'
+import {DAppActions} from "./constant"
 import {
+  BroadcastTransactionResult,
   ConnectInfo,
   ProviderError,
   RequestArguments,
-  SendPartyArguments,
-  SendPaymentArguments,
-  SendStakeDelegationArguments,
+  SendLegacyStakeDelegationArgs,
+  SendLegacyPaymentArgs,
+  SendTransactionArgs,
   SendTransactionResult,
-  SignableData,
   SignedData,
-  SignTransactionResult
-} from "./TSTypes";
-import {isMessage, isParty, isPayment, isStakeDelegation} from "./utils";
-export interface SignMessageArguments {
-  message: string
-}
+  SignMessageArgs,
+  VerifyMessageArgs,
+} from "./TSTypes"
+import {isMessage, isParty, isPayment, isStakeDelegation} from "./utils"
+import {IMinaProvider} from "./IProvider"
 
-export interface VerifyMessageArguments extends SignedData {
-
-}
-
-type ConnectListener = (connectInfo: ConnectInfo) => void
-type ChainChangedListener = (chainId: string) => void
-type AccountsChangedListener = (accounts: string[]) => void
-
-export interface IMinaProvider {
-  request(args: RequestArguments): Promise<unknown>
-  isConnected(): boolean
-  sendPayment(args: SendPaymentArguments): Promise<{ hash: string }>
-  sendStakeDelegation(args: SendStakeDelegationArguments): Promise<{ hash: string }>
-  signMessage(args: SignMessageArguments): Promise<SignedData>
-  verifyMessage(args: VerifyMessageArguments): Promise<boolean>
-  requestAccounts(): Promise<string[]>
-  requestNetwork(): Promise<string>
-
-  // Events
-  on(eventName: 'connect', listener: ConnectListener): this
-  on(eventName: 'disconnect', listener: ConnectListener): this
-  on(eventName: 'chainChanged', listener: ChainChangedListener): this
-  on(eventName: 'accountsChanged', listener: AccountsChangedListener): this
-
-  removeListener(eventName: 'disconnect', listener: ConnectListener): this
-  removeListener(eventName: 'connect', listener: ConnectListener): this
-  removeListener(
-    eventName: 'chainChanged',
-    listener: ChainChangedListener
-  ): this
-  removeListener(
-    eventName: 'accountsChanged',
-    listener: AccountsChangedListener
-  ): this
-}
-
-
-export default class AuroWeb3Provider extends EventEmitter implements IMinaProvider{
-  private readonly channel: MessageChannel;
-  private readonly messenger: Messenger;
-  public readonly isAuro: boolean = true;
+export default class MinaProvider extends EventEmitter implements IMinaProvider{
+  private readonly channel: MessageChannel
+  private readonly messenger: Messenger
+  public readonly isAuro: boolean = true
   private connectedFlag: boolean
+  
   constructor() {
-    super();
-    this.channel = new MessageChannel('webhook');
-    this.messenger = new Messenger(this.channel);
-    this.initEvents();
+    super()
+    this.channel = new MessageChannel('webhook')
+    this.messenger = new Messenger(this.channel)
+    this.initEvents()
   }
 
   public request({method, params}: RequestArguments): Promise<any> {
@@ -73,26 +36,39 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
   }
 
   public isConnected(): boolean {
-    return this.connectedFlag;
+    return this.connectedFlag
   }
 
-  public async sendPayment(args: SendPaymentArguments): Promise<SendTransactionResult>  {
+  public async sendLegacyPayment(args: SendLegacyPaymentArgs): Promise<BroadcastTransactionResult>  {
     return this.request({method: DAppActions.mina_sendPayment, params: args})
   }
 
-  public async sendStakeDelegation(args: SendStakeDelegationArguments): Promise<SendTransactionResult> {
+  public async sendLegacyStakeDelegation(args: SendLegacyStakeDelegationArgs): Promise<BroadcastTransactionResult> {
     return this.request({method: DAppActions.mina_sendStakeDelegation, params: args})
   }
 
-  public async signMessage(args: SignMessageArguments): Promise<SignedData> {
+  public async signMessage(args: SignMessageArgs): Promise<SignedData> {
     return this.request({method: DAppActions.mina_signMessage, params: args})
   }
 
-  public async sendParty(args: SendPartyArguments): Promise<SendTransactionResult>  {
-    return this.request({method: DAppActions.mina_sendParty, params: args})
+  public async sendTransaction(args: SendTransactionArgs): Promise<SendTransactionResult>  {
+      if (isMessage(args)) {
+        return this.signMessage(args as SignMessageArgs)
+      }
+      if (isPayment(args)) {
+        return this.sendLegacyPayment(args)
+      }
+      if (isStakeDelegation(args)) {
+        return this.sendLegacyStakeDelegation(args)
+      }
+      if (isParty(args)) {
+        return this.request({method: DAppActions.mina_sendParty, params: args})
+      } else {
+        throw new Error(`Expected signable payload, got '${args}'.`)
+      }
   }
 
-  public async verifyMessage(args: VerifyMessageArguments): Promise<boolean>{
+  public async verifyMessage(args: VerifyMessageArgs): Promise<boolean>{
     return this.request({method: DAppActions.mina_verifyMessage, params: args})
   }
 
@@ -102,23 +78,6 @@ export default class AuroWeb3Provider extends EventEmitter implements IMinaProvi
 
   public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley-QA" |'Unhnown'> {
     return this.request({method: DAppActions.mina_requestNetwork})
-  }
-
-  public async signTransaction(payload: SignableData): Promise<SignTransactionResult> {
-    if (isMessage(payload)) {
-      return this.signMessage(payload)
-    }
-    if (isPayment(payload)) {
-      return this.sendPayment(payload);
-    }
-    if (isStakeDelegation(payload)) {
-      return this.sendStakeDelegation(payload);
-    }
-    if (isParty(payload)) {
-      return this.sendParty(payload);
-    } else {
-      throw new Error(`Expected signable payload, got '${payload}'.`);
-    }
   }
 
   private initEvents() {

@@ -18,5 +18,5 @@ export const DAppActions = {
   mina_requestNetwork: "mina_requestNetwork",
 
   // send party transaction
-  mina_sendParty: "mina_sendParty"
+  mina_sendParty: "mina_sendParty",
 }
