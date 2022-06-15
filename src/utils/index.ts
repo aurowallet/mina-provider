@@ -1,11 +1,3 @@
-import type {
-  SendPartyArguments,
-  SendLegacyPaymentArgs,
-  SendLegacyStakeDelegationArgs,
-  SignMessageArgs
-} from "../TSTypes";
-import {SendTransactionArgs} from "../TSTypes";
-
 /**
  * get Site Icon from window
  * @param {*} window
@@ -27,25 +19,3 @@ export function getSiteIcon (window: Window) {
   return null
 }
 
-function hasCommonProperties(data: SendTransactionArgs) {
-  return (
-    data.hasOwnProperty("to") &&
-    data.hasOwnProperty("from")
-  );
-}
-
-export function isParty(p: SendTransactionArgs): p is SendPartyArguments {
-  return p.hasOwnProperty("parties");
-}
-
-export function isPayment(p: SendTransactionArgs): p is SendLegacyPaymentArgs {
-  return hasCommonProperties(p) && p.hasOwnProperty("amount");
-}
-
-export function isStakeDelegation(p: SendTransactionArgs): p is SendLegacyStakeDelegationArgs {
-  return hasCommonProperties(p) && !p.hasOwnProperty("amount");
-}
-
-export function isMessage(p: SendTransactionArgs): p is SignMessageArgs {
-  return p.hasOwnProperty("message");
-}

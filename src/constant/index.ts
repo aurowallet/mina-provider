@@ -17,6 +17,6 @@ export const DAppActions = {
   // request network
   mina_requestNetwork: "mina_requestNetwork",
 
-  // send party transaction
-  mina_sendParty: "mina_sendParty",
+  // send zkApps transaction
+  mina_sendTransaction: "mina_sendTransaction",
 }

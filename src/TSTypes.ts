@@ -36,8 +36,8 @@ export type SendLegacyPaymentArgs  = {
   readonly memo?:string
 }
 
-export type SendPartyArguments  = {
-  readonly parties: any;
+export type SendTransactionArgs  = {
+  readonly transaction: any;
   readonly feePayer?: {
     readonly fee?: number;
     readonly memo?: string;
@@ -67,7 +67,5 @@ export interface VerifyMessageArgs extends SignedData {
 
 }
 
-export type SendTransactionArgs = SignMessageArgs | SendLegacyStakeDelegationArgs | SendLegacyPaymentArgs | SendPartyArguments;
-
-export type SendTransactionResult = BroadcastTransactionResult | SignedData;
+export type SendTransactionResult = BroadcastTransactionResult;
 

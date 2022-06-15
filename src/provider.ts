@@ -15,7 +15,6 @@ import {
   SignMessageArgs,
   VerifyMessageArgs,
 } from "./TSTypes"
-import {isMessage, isParty, isPayment, isStakeDelegation} from "./utils"
 import {IMinaProvider} from "./IProvider"
 
 export default class MinaProvider extends EventEmitter implements IMinaProvider{
@@ -39,33 +38,12 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     return this.connectedFlag
   }
 
-  public async sendLegacyPayment(args: SendLegacyPaymentArgs): Promise<BroadcastTransactionResult>  {
-    return this.request({method: DAppActions.mina_sendPayment, params: args})
-  }
-
-  public async sendLegacyStakeDelegation(args: SendLegacyStakeDelegationArgs): Promise<BroadcastTransactionResult> {
-    return this.request({method: DAppActions.mina_sendStakeDelegation, params: args})
+  public async sendTransaction(args: SendTransactionArgs): Promise<SendTransactionResult>  {
+    return this.request({method: DAppActions.mina_sendTransaction, params: args})
   }
 
   public async signMessage(args: SignMessageArgs): Promise<SignedData> {
     return this.request({method: DAppActions.mina_signMessage, params: args})
-  }
-
-  public async sendTransaction(args: SendTransactionArgs): Promise<SendTransactionResult>  {
-      if (isMessage(args)) {
-        return this.signMessage(args as SignMessageArgs)
-      }
-      if (isPayment(args)) {
-        return this.sendLegacyPayment(args)
-      }
-      if (isStakeDelegation(args)) {
-        return this.sendLegacyStakeDelegation(args)
-      }
-      if (isParty(args)) {
-        return this.request({method: DAppActions.mina_sendParty, params: args})
-      } else {
-        throw new Error(`Expected signable payload, got '${args}'.`)
-      }
   }
 
   public async verifyMessage(args: VerifyMessageArgs): Promise<boolean>{
@@ -78,6 +56,14 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
 
   public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley-QA" |'Unhnown'> {
     return this.request({method: DAppActions.mina_requestNetwork})
+  }
+
+  public async sendLegacyPayment(args: SendLegacyPaymentArgs): Promise<BroadcastTransactionResult>  {
+    return this.request({method: DAppActions.mina_sendPayment, params: args})
+  }
+
+  public async sendLegacyStakeDelegation(args: SendLegacyStakeDelegationArgs): Promise<BroadcastTransactionResult> {
+    return this.request({method: DAppActions.mina_sendStakeDelegation, params: args})
   }
 
   private initEvents() {
