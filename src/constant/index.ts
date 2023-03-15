@@ -3,7 +3,7 @@ export const DAppActions = {
   mina_requestAccounts: "mina_requestAccounts",
 
   //  get accounts
-  mina_getAccounts: "mina_accounts",
+  mina_accounts: "mina_accounts",
 
   // send payment
   mina_sendPayment: "mina_sendPayment",
@@ -22,4 +22,10 @@ export const DAppActions = {
 
   // send zkApps transaction
   mina_sendTransaction: "mina_sendTransaction",
+
+  // sign fields
+  mina_signFields: "mina_signFields",
+
+  // verify fields
+  mina_verifyFields: "mina_verifyFields",
 }
