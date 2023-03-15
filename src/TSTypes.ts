@@ -71,7 +71,7 @@ export type SendTransactionResult = BroadcastTransactionResult;
 
 export type SignedFieldsData  = {
   publicKey: string,
-  payload: string[],
+  payload: number[],
   signature:string
 }
 
