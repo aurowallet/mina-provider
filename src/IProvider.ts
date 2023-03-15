@@ -9,7 +9,6 @@ import {
 
 export interface IMinaProvider {
   request(args: RequestArguments): Promise<unknown>
-  isConnected(): boolean
   sendTransaction(args: SendTransactionArgs): Promise<SendTransactionResult>
   sendLegacyPayment(args: SendLegacyPaymentArgs): Promise<BroadcastTransactionResult>
   sendLegacyStakeDelegation(args: SendLegacyStakeDelegationArgs): Promise<BroadcastTransactionResult>
@@ -22,13 +21,9 @@ export interface IMinaProvider {
   verifyFields(args: VerifyFieldsArguments): Promise<boolean>
 
   // Events
-  on(eventName: 'connect', listener: ConnectListener): this
-  on(eventName: 'disconnect', listener: ConnectListener): this
   on(eventName: 'chainChanged', listener: ChainChangedListener): this
   on(eventName: 'accountsChanged', listener: AccountsChangedListener): this
 
-  removeListener(eventName: 'disconnect', listener: ConnectListener): this
-  removeListener(eventName: 'connect', listener: ConnectListener): this
   removeListener(
     eventName: 'chainChanged',
     listener: ChainChangedListener
