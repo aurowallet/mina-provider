@@ -1,6 +1,6 @@
 {
   "name": "@aurowallet/mina-provider",
-  "version": "0.0.10",
+  "version": "0.1.5",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "licenses": [
@@ -15,9 +15,9 @@
     "url": "git+https://github.com/aurowallet/mina-provider.git"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
-  "prepublish": "tsc",
   "dependencies": {
     "@types/eventemitter3": "^2.0.2",
     "@types/uuid": "^8.3.1",

@@ -2,6 +2,9 @@ export const DAppActions = {
   //  request network
   mina_requestAccounts: "mina_requestAccounts",
 
+  //  get accounts
+  mina_getAccounts: "mina_accounts",
+
   // send payment
   mina_sendPayment: "mina_sendPayment",
 
@@ -17,6 +20,6 @@ export const DAppActions = {
   // request network
   mina_requestNetwork: "mina_requestNetwork",
 
-  // send party transaction
-  mina_sendParty: "mina_sendParty"
+  // send zkApps transaction
+  mina_sendTransaction: "mina_sendTransaction",
 }

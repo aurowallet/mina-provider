@@ -9,6 +9,12 @@ export interface ProviderError extends Error {
   data?: unknown;
 }
 
+export type ConnectListener = (connectInfo: ConnectInfo) => void
+
+export type ChainChangedListener = (chainId: string) => void
+
+export type AccountsChangedListener = (accounts: string[]) => void
+
 export type ConnectInfo = {
   chainId: string;
 }
@@ -18,50 +24,48 @@ export type RequestArguments = {
   params?: unknown[] | object;
 }
 
-export type SendTransactionResult = {
+export type BroadcastTransactionResult = {
   hash: string
 }
 
 
-export type SendPaymentArguments  = {
+export interface SendLegacyPaymentArgs  {
   readonly to: string,
   readonly amount: number,
   readonly fee?: number,
   readonly memo?:string
 }
 
-export type SendPartyArguments  = {
-  readonly parties: any;
+export interface SendTransactionArgs  {
+  readonly transaction: any,
   readonly feePayer?: {
     readonly fee?: number;
     readonly memo?: string;
   };
 }
 
-export type SendStakeDelegationArguments  = {
+export type SendLegacyStakeDelegationArgs  = {
   readonly to: string,
   readonly fee?: number,
   readonly memo?:string
 }
 
-export type SignedData  = {
-  publicKey: string,
-  payload: string,
+export interface SignedData {
+  publicKey: string;
+  payload: string;
   signature: {
-    field: string,
-    scalar: string
+    field: string;
+    scalar: string;
   }
 }
 
-export type SignMessageArguments = {
+export type SignMessageArgs = {
   readonly message: string
 }
 
-export interface VerifyMessageArguments extends SignedData {
+export interface VerifyMessageArgs extends SignedData {
 
 }
 
-export type SignableData = SignMessageArguments | SendStakeDelegationArguments | SendPaymentArguments | SendPartyArguments;
-
-export type SignTransactionResult = SendTransactionResult | SignedData
+export type SendTransactionResult = BroadcastTransactionResult;
 

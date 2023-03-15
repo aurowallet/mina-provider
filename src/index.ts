@@ -1,7 +1,7 @@
 import { DAppActions } from "./constant";
 import MessageChannel from "./lib/messageChannel";
-import AuroWeb3Provider from "./provider";
-export default AuroWeb3Provider;
+import MinaProvider from "./provider";
+export default MinaProvider;
 export {
   DAppActions,
   MessageChannel
