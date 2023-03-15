@@ -69,3 +69,15 @@ export interface VerifyMessageArgs extends SignedData {
 
 export type SendTransactionResult = BroadcastTransactionResult;
 
+export type SignedFieldsData  = {
+  publicKey: string,
+  payload: string[],
+  signature:string
+}
+
+export type SignFieldsArguments = {
+  readonly fields: number[]
+}
+
+export interface VerifyFieldsArguments extends SignedFieldsData {
+}

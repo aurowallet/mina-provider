@@ -14,6 +14,9 @@ import {
   SignedData,
   SignMessageArgs,
   VerifyMessageArgs,
+  SignFieldsArguments,
+  SignedFieldsData,
+  VerifyFieldsArguments,
 } from "./TSTypes"
 import {IMinaProvider} from "./IProvider"
 
@@ -21,21 +24,15 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
   private readonly channel: MessageChannel
   private readonly messenger: Messenger
   public readonly isAuro: boolean = true
-  private connectedFlag: boolean
   
   constructor() {
     super()
     this.channel = new MessageChannel('webhook')
     this.messenger = new Messenger(this.channel)
-    this.initEvents()
   }
 
   public request({method, params}: RequestArguments): Promise<any> {
     return this.messenger.send(method, params)
-  }
-
-  public isConnected(): boolean {
-    return this.connectedFlag
   }
 
   public async sendTransaction(args: SendTransactionArgs): Promise<SendTransactionResult>  {
@@ -55,7 +52,7 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
   }
 
   public async getAccounts(): Promise<string[]> {
-    return this.request({method: DAppActions.mina_getAccounts})
+    return this.request({method: DAppActions.mina_accounts})
   }
 
   public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley-QA" |'Unhnown'> {
@@ -70,37 +67,12 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     return this.request({method: DAppActions.mina_sendStakeDelegation, params: args})
   }
 
-  private initEvents() {
-    this.channel.on('connect', this.onConnect.bind(this))
-    this.channel.on('disconnect', this.onDisconnect.bind(this))
-    this.channel.on('chainChanged', this.onChainChanged.bind(this))
-    this.channel.on('networkChanged', this.onNetworkChanged.bind(this))
-    this.channel.on(
-      'accountsChanged',
-      this.emitAccountsChanged.bind(this)
-    )
+  public async signFields(args: SignFieldsArguments): Promise<SignedFieldsData> {
+    return this.request({method: DAppActions.mina_signFields, params: args})
   }
 
-  private onConnect(): void {
-    this.connectedFlag = true
-    this.emit('connect')
-  }
-
-  private onDisconnect(error: ProviderError): void {
-    this.connectedFlag = false
-    this.emit('disconnect', error)
-  }
-
-  private onChainChanged(chainId: string): void {
-    this.emit('chainChanged', chainId)
-  }
-
-  private onNetworkChanged(network: string): void {
-    this.emit('networkChanged', network)
-  }
-
-  private emitAccountsChanged(accounts: string[]): void {
-    this.emit('accountsChanged', accounts)
+  public async verifyFields(args: VerifyFieldsArguments): Promise<boolean> {
+    return this.request({method: DAppActions.mina_verifyFields, params: args})
   }
 }
 
