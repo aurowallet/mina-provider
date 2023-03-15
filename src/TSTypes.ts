@@ -29,15 +29,15 @@ export type BroadcastTransactionResult = {
 }
 
 
-export type SendLegacyPaymentArgs  = {
+export interface SendLegacyPaymentArgs  {
   readonly to: string,
   readonly amount: number,
   readonly fee?: number,
   readonly memo?:string
 }
 
-export type SendTransactionArgs  = {
-  readonly transaction: any;
+export interface SendTransactionArgs  {
+  readonly transaction: any,
   readonly feePayer?: {
     readonly fee?: number;
     readonly memo?: string;
@@ -50,12 +50,12 @@ export type SendLegacyStakeDelegationArgs  = {
   readonly memo?:string
 }
 
-export type SignedData  = {
-  publicKey: string,
-  payload: string,
+export interface SignedData {
+  publicKey: string;
+  payload: string;
   signature: {
-    field: string,
-    scalar: string
+    field: string;
+    scalar: string;
   }
 }
 

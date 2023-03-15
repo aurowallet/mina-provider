@@ -54,6 +54,10 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     return this.request({method: DAppActions.mina_requestAccounts})
   }
 
+  public async getAccounts(): Promise<string[]> {
+    return this.request({method: DAppActions.mina_getAccounts})
+  }
+
   public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley-QA" |'Unhnown'> {
     return this.request({method: DAppActions.mina_requestNetwork})
   }
