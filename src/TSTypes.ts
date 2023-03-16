@@ -70,14 +70,16 @@ export interface VerifyMessageArgs extends SignedData {
 export type SendTransactionResult = BroadcastTransactionResult;
 
 export type SignedFieldsData  = {
-  publicKey: string,
-  payload: number[],
+  data:number[],
   signature:string
 }
 
 export type SignFieldsArguments = {
-  readonly fields: number[]
+  readonly message: number[]
 }
 
-export interface VerifyFieldsArguments extends SignedFieldsData {
+export interface VerifyFieldsArguments {
+  publicKey: string,
+  payload: number[],
+  signature:string
 }
