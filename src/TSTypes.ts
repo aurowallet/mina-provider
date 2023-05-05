@@ -80,6 +80,6 @@ export type SignFieldsArguments = {
 
 export interface VerifyFieldsArguments {
   publicKey: string,
-  payload: number[],
+  payload: (string|number)[],
   signature:string
 }
