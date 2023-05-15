@@ -27,8 +27,6 @@ export default class Messenger {
   }
 
   send(action: string, params = {}):Promise<{ result: unknown, error: Error }> {
-    console.log('provider==Messenger=0',action,params);
-    console.log('provider==Messenger=1',window.location.origin);
     const id = randomUUID()
     this.channel.send('messageFromWeb', {
       action,
