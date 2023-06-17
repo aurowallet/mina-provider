@@ -52,7 +52,7 @@ export type SendLegacyStakeDelegationArgs  = {
 
 export interface SignedData {
   publicKey: string;
-  payload: string;
+  data: string;
   signature: {
     field: string;
     scalar: string;
