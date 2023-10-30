@@ -29,5 +29,11 @@ export const DAppActions = {
   // verify fields
   mina_verifyFields: "mina_verifyFields",
 
+  // sign Json message
+  mina_sign_JsonMessage: "mina_sign_JsonMessage",
+
+  // verify Json message
+  mina_verify_JsonMessage: "mina_verify_JsonMessage",
+
   mina_switchChain:"mina_switchChain"
 }

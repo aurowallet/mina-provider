@@ -17,6 +17,8 @@ import {
   SignFieldsArguments,
   SignedFieldsData,
   VerifyFieldsArguments,
+  SignJsonMessageArgs,
+  VerifyJsonMessageArgs,
   SwitchChainArgs,
 } from "./TSTypes"
 import {IMinaProvider} from "./IProvider"
@@ -58,7 +60,7 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     return this.request({method: DAppActions.mina_accounts})
   }
 
-  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley" | "Testworld2" |'Unhnown'> {
+  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley" |"Testworld2"|'Unhnown'> {
     return this.request({method: DAppActions.mina_requestNetwork})
   }
 
@@ -76,6 +78,14 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
 
   public async verifyFields(args: VerifyFieldsArguments): Promise<boolean> {
     return this.request({method: DAppActions.mina_verifyFields, params: args})
+  }
+
+  public async signJsonMessage(args: SignJsonMessageArgs): Promise<SignedData> {
+    return this.request({method: DAppActions.mina_sign_JsonMessage, params: args})
+  }
+
+  public async verifyJsonMessage(args: VerifyJsonMessageArgs): Promise<boolean>{
+    return this.request({method: DAppActions.mina_verify_JsonMessage, params: args})
   }
 
   public async switchChain(args: SwitchChainArgs): Promise<boolean> {

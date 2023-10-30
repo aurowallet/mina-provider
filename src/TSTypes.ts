@@ -84,6 +84,18 @@ export interface VerifyFieldsArguments {
   signature:string
 }
 
+type JsonMessageData  = {
+  label:string
+  value:string
+}
+export type SignJsonMessageArgs = {
+  readonly message: Array<JsonMessageData>
+}
+
+export interface VerifyJsonMessageArgs extends VerifyMessageArgs {
+
+}
+
 export type SwitchChainArgs = {
   readonly chainId: string
 }
