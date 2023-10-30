@@ -28,4 +28,6 @@ export const DAppActions = {
 
   // verify fields
   mina_verifyFields: "mina_verifyFields",
+
+  mina_switchChain:"mina_switchChain"
 }

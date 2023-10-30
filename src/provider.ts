@@ -17,6 +17,7 @@ import {
   SignFieldsArguments,
   SignedFieldsData,
   VerifyFieldsArguments,
+  SwitchChainArgs,
 } from "./TSTypes"
 import {IMinaProvider} from "./IProvider"
 
@@ -24,6 +25,7 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
   private readonly channel: MessageChannel
   private readonly messenger: Messenger
   public readonly isAuro: boolean = true
+  private chainId :string
   
   constructor() {
     super()
@@ -56,7 +58,7 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     return this.request({method: DAppActions.mina_accounts})
   }
 
-  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley-QA" |'Unhnown'> {
+  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley" | "Testworld2" |'Unhnown'> {
     return this.request({method: DAppActions.mina_requestNetwork})
   }
 
@@ -75,6 +77,11 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
   public async verifyFields(args: VerifyFieldsArguments): Promise<boolean> {
     return this.request({method: DAppActions.mina_verifyFields, params: args})
   }
+
+  public async switchChain(args: SwitchChainArgs): Promise<boolean> {
+    return this.request({method: DAppActions.mina_switchChain, params: args})
+  }
+  
   private initEvents() {
     this.channel.on('chainChanged', this.onChainChanged.bind(this))
     this.channel.on('networkChanged', this.onNetworkChanged.bind(this))
@@ -85,7 +92,9 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
   }
 
   private onChainChanged(chainId: string): void {
-    this.emit('chainChanged', chainId)
+    if(chainId!==this.chainId){
+      this.emit('chainChanged', chainId)
+    }
   }
 
   private onNetworkChanged(network: string): void {

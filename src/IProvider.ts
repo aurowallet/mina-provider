@@ -4,7 +4,7 @@ import {
   RequestArguments,
   SendLegacyPaymentArgs, SendLegacyStakeDelegationArgs,
   SendTransactionArgs,
-  SendTransactionResult, SignedData, SignedFieldsData, SignFieldsArguments, SignMessageArgs, VerifyMessageArgs, VerifyFieldsArguments
+  SendTransactionResult, SignedData, SignedFieldsData, SignFieldsArguments, SignMessageArgs, VerifyMessageArgs, VerifyFieldsArguments,SwitchChainArgs
 } from "./TSTypes";
 
 export interface IMinaProvider {
@@ -20,6 +20,7 @@ export interface IMinaProvider {
   signFields(args: SignFieldsArguments): Promise<SignedFieldsData>
   verifyFields(args: VerifyFieldsArguments): Promise<boolean>
 
+  switchChain(args:SwitchChainArgs):Promise<boolean>
   // Events
   on(eventName: 'chainChanged', listener: ChainChangedListener): this
   on(eventName: 'accountsChanged', listener: AccountsChangedListener): this
