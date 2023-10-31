@@ -99,3 +99,25 @@ export interface VerifyJsonMessageArgs extends VerifyMessageArgs {
 export type SwitchChainArgs = {
   readonly chainId: string
 }
+
+export type CreateNullifierArgs = {
+  readonly message: bigint[]
+}
+
+export type Group = {
+  x: bigint;
+  y: bigint;
+};
+
+export type Nullifier = {
+  publicKey: Group;
+  public: {
+    nullifier: Group;
+    s: bigint;
+  };
+  private: {
+    c: bigint;
+    g_r: Group;
+    h_m_pk_r: Group;
+  };
+};

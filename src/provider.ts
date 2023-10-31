@@ -20,9 +20,11 @@ import {
   SignJsonMessageArgs,
   VerifyJsonMessageArgs,
   SwitchChainArgs,
+  CreateNullifierArgs,
+  Nullifier,
 } from "./TSTypes"
 import {IMinaProvider} from "./IProvider"
-
+  
 export default class MinaProvider extends EventEmitter implements IMinaProvider{
   private readonly channel: MessageChannel
   private readonly messenger: Messenger
@@ -90,6 +92,10 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
 
   public async switchChain(args: SwitchChainArgs): Promise<boolean> {
     return this.request({method: DAppActions.mina_switchChain, params: args})
+  }
+
+  public async createNullifier(args: CreateNullifierArgs): Promise<Nullifier> {
+    return this.request({method: DAppActions.mina_createNullifier, params: args})
   }
   
   private initEvents() {

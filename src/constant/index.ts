@@ -35,5 +35,7 @@ export const DAppActions = {
   // verify Json message
   mina_verify_JsonMessage: "mina_verify_JsonMessage",
 
-  mina_switchChain:"mina_switchChain"
+  mina_switchChain:"mina_switchChain",
+
+  mina_createNullifier: "mina_createNullifier",
 }
