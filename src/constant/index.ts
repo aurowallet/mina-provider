@@ -38,4 +38,7 @@ export const DAppActions = {
   mina_switchChain:"mina_switchChain",
 
   mina_createNullifier: "mina_createNullifier",
+
+
+  mina_addChain:"mina_addChain"
 }

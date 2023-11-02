@@ -22,6 +22,8 @@ import {
   SwitchChainArgs,
   CreateNullifierArgs,
   Nullifier,
+  AddChainArgs,
+  ChainInfoArgs,
 } from "./TSTypes"
 import {IMinaProvider} from "./IProvider"
   
@@ -29,7 +31,7 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
   private readonly channel: MessageChannel
   private readonly messenger: Messenger
   public readonly isAuro: boolean = true
-  private chainId :string
+  private chainInfo :ChainInfoArgs
   
   constructor() {
     super()
@@ -62,7 +64,7 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     return this.request({method: DAppActions.mina_accounts})
   }
 
-  public async requestNetwork(): Promise<'Mainnet' | 'Devnet' | "Berkeley" |"Testworld2"|'Unhnown'> {
+  public async requestNetwork(): Promise<ChainInfoArgs> {
     return this.request({method: DAppActions.mina_requestNetwork})
   }
 
@@ -90,8 +92,12 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     return this.request({method: DAppActions.mina_verify_JsonMessage, params: args})
   }
 
-  public async switchChain(args: SwitchChainArgs): Promise<boolean> {
+  public async switchChain(args: SwitchChainArgs): Promise<ChainInfoArgs> {
     return this.request({method: DAppActions.mina_switchChain, params: args})
+  }
+  
+  public async addChain(args: AddChainArgs): Promise<ChainInfoArgs> {
+    return this.request({method: DAppActions.mina_addChain, params: args})
   }
 
   public async createNullifier(args: CreateNullifierArgs): Promise<Nullifier> {
@@ -107,9 +113,10 @@ export default class MinaProvider extends EventEmitter implements IMinaProvider{
     )
   }
 
-  private onChainChanged(chainId: string): void {
-    if(chainId!==this.chainId){
-      this.emit('chainChanged', chainId)
+  private onChainChanged(chainInfo:ChainInfoArgs): void {
+    if(chainInfo.chainId !== this.chainInfo?.chainId){
+      this.chainInfo = chainInfo
+      this.emit('chainChanged', chainInfo)
     }
   }
 

@@ -11,7 +11,7 @@ export interface ProviderError extends Error {
 
 export type ConnectListener = (connectInfo: ConnectInfo) => void
 
-export type ChainChangedListener = (chainId: string) => void
+export type ChainChangedListener = (chainInfo: ChainInfoArgs) => void
 
 export type AccountsChangedListener = (accounts: string[]) => void
 
@@ -121,3 +121,13 @@ export type Nullifier = {
     h_m_pk_r: Group;
   };
 };
+
+export type AddChainArgs = {
+  readonly url: string
+  readonly name: string
+}
+
+export type ChainInfoArgs ={
+  chainId:string,
+  name:string,
+}
