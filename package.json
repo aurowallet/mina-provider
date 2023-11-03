@@ -1,6 +1,6 @@
 {
   "name": "@aurowallet/mina-provider",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,5 +37,14 @@
   "description": "[API documents](https://docs.aurowallet.com/general/reference/api-reference/mina-provider-api)",
   "bugs": {
     "url": "https://github.com/aurowallet/mina-provider/issues"
-  }
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "*.d.ts",
+    ".babelrc",
+    "LINCENSE",
+    "package.json",
+    "tsconfig.json"
+  ]
 }
