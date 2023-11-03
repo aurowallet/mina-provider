@@ -1,8 +1,9 @@
 {
   "name": "@aurowallet/mina-provider",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "Apache-2.0",
   "main": "dist/index.js",
+  "types": "dist/index",
   "licenses": [
     {
       "type": "Apache-2.0",
