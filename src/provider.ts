@@ -1,7 +1,7 @@
-import MessageChannel from "./lib/messageChannel"
-import Messenger from "./messager"
-import EventEmitter from 'eventemitter3'
-import {DAppActions} from "./constant"
+import MessageChannel from "./lib/messageChannel";
+import Messenger from "./messager";
+import EventEmitter from "eventemitter3";
+import { DAppActions } from "./constant";
 import {
   BroadcastTransactionResult,
   ConnectInfo,
@@ -24,108 +24,152 @@ import {
   Nullifier,
   AddChainArgs,
   ChainInfoArgs,
-} from "./TSTypes"
-import {IMinaProvider} from "./IProvider"
-  
-export default class MinaProvider extends EventEmitter implements IMinaProvider{
-  private readonly channel: MessageChannel
-  private readonly messenger: Messenger
-  public readonly isAuro: boolean = true
-  private chainInfo :ChainInfoArgs
-  
+} from "./TSTypes";
+import { IMinaProvider } from "./IProvider";
+
+export default class MinaProvider
+  extends EventEmitter
+  implements IMinaProvider
+{
+  private readonly channel: MessageChannel;
+  private readonly messenger: Messenger;
+  public readonly isAuro: boolean = true;
+  private chainInfo: ChainInfoArgs;
+
   constructor() {
-    super()
-    this.channel = new MessageChannel('webhook')
-    this.messenger = new Messenger(this.channel)
-    this.initEvents()
+    super();
+    this.channel = new MessageChannel("webhook");
+    this.messenger = new Messenger(this.channel);
+    this.initEvents();
   }
 
-  public request({method, params}: RequestArguments): Promise<any> {
-    return this.messenger.send(method, params)
+  public request({ method, params }: RequestArguments): Promise<any> {
+    return this.messenger.send(method, params);
   }
 
-  public async sendTransaction(args: SendTransactionArgs): Promise<SendTransactionResult>  {
-    return this.request({method: DAppActions.mina_sendTransaction, params: args})
+  public async sendTransaction(
+    args: SendTransactionArgs
+  ): Promise<SendTransactionResult | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_sendTransaction,
+      params: args,
+    });
   }
 
-  public async signMessage(args: SignMessageArgs): Promise<SignedData> {
-    return this.request({method: DAppActions.mina_signMessage, params: args})
+  public async signMessage(
+    args: SignMessageArgs
+  ): Promise<SignedData | ProviderError> {
+    return this.request({ method: DAppActions.mina_signMessage, params: args });
   }
 
-  public async verifyMessage(args: VerifyMessageArgs): Promise<boolean>{
-    return this.request({method: DAppActions.mina_verifyMessage, params: args})
+  public async verifyMessage(
+    args: VerifyMessageArgs
+  ): Promise<boolean | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_verifyMessage,
+      params: args,
+    });
   }
 
-  public async requestAccounts(): Promise<string[]> {
-    return this.request({method: DAppActions.mina_requestAccounts})
+  public async requestAccounts(): Promise<string[] | ProviderError> {
+    return this.request({ method: DAppActions.mina_requestAccounts });
   }
 
   public async getAccounts(): Promise<string[]> {
-    return this.request({method: DAppActions.mina_accounts})
+    return this.request({ method: DAppActions.mina_accounts });
   }
 
   public async requestNetwork(): Promise<ChainInfoArgs> {
-    return this.request({method: DAppActions.mina_requestNetwork})
+    return this.request({ method: DAppActions.mina_requestNetwork });
   }
 
-  public async sendLegacyPayment(args: SendLegacyPaymentArgs): Promise<BroadcastTransactionResult>  {
-    return this.request({method: DAppActions.mina_sendPayment, params: args})
+  public async sendLegacyPayment(
+    args: SendLegacyPaymentArgs
+  ): Promise<BroadcastTransactionResult | ProviderError> {
+    return this.request({ method: DAppActions.mina_sendPayment, params: args });
   }
 
-  public async sendLegacyStakeDelegation(args: SendLegacyStakeDelegationArgs): Promise<BroadcastTransactionResult> {
-    return this.request({method: DAppActions.mina_sendStakeDelegation, params: args})
+  public async sendLegacyStakeDelegation(
+    args: SendLegacyStakeDelegationArgs
+  ): Promise<BroadcastTransactionResult | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_sendStakeDelegation,
+      params: args,
+    });
   }
 
-  public async signFields(args: SignFieldsArguments): Promise<SignedFieldsData> {
-    return this.request({method: DAppActions.mina_signFields, params: args})
+  public async signFields(
+    args: SignFieldsArguments
+  ): Promise<SignedFieldsData | ProviderError> {
+    return this.request({ method: DAppActions.mina_signFields, params: args });
   }
 
-  public async verifyFields(args: VerifyFieldsArguments): Promise<boolean> {
-    return this.request({method: DAppActions.mina_verifyFields, params: args})
+  public async verifyFields(
+    args: VerifyFieldsArguments
+  ): Promise<boolean | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_verifyFields,
+      params: args,
+    });
   }
 
-  public async signJsonMessage(args: SignJsonMessageArgs): Promise<SignedData> {
-    return this.request({method: DAppActions.mina_sign_JsonMessage, params: args})
+  public async signJsonMessage(
+    args: SignJsonMessageArgs
+  ): Promise<SignedData | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_sign_JsonMessage,
+      params: args,
+    });
   }
 
-  public async verifyJsonMessage(args: VerifyJsonMessageArgs): Promise<boolean>{
-    return this.request({method: DAppActions.mina_verify_JsonMessage, params: args})
+  public async verifyJsonMessage(
+    args: VerifyJsonMessageArgs
+  ): Promise<boolean | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_verify_JsonMessage,
+      params: args,
+    });
   }
 
-  public async switchChain(args: SwitchChainArgs): Promise<ChainInfoArgs> {
-    return this.request({method: DAppActions.mina_switchChain, params: args})
-  }
-  
-  public async addChain(args: AddChainArgs): Promise<ChainInfoArgs> {
-    return this.request({method: DAppActions.mina_addChain, params: args})
+  public async switchChain(
+    args: SwitchChainArgs
+  ): Promise<ChainInfoArgs | ProviderError> {
+    return this.request({ method: DAppActions.mina_switchChain, params: args });
   }
 
-  public async createNullifier(args: CreateNullifierArgs): Promise<Nullifier> {
-    return this.request({method: DAppActions.mina_createNullifier, params: args})
+  public async addChain(
+    args: AddChainArgs
+  ): Promise<ChainInfoArgs | ProviderError> {
+    return this.request({ method: DAppActions.mina_addChain, params: args });
   }
-  
+
+  public async createNullifier(
+    args: CreateNullifierArgs
+  ): Promise<Nullifier | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_createNullifier,
+      params: args,
+    });
+  }
+
   private initEvents() {
-    this.channel.on('chainChanged', this.onChainChanged.bind(this))
-    this.channel.on('networkChanged', this.onNetworkChanged.bind(this))
-    this.channel.on(
-      'accountsChanged',
-      this.emitAccountsChanged.bind(this)
-    )
+    this.channel.on("chainChanged", this.onChainChanged.bind(this));
+    this.channel.on("networkChanged", this.onNetworkChanged.bind(this));
+    this.channel.on("accountsChanged", this.emitAccountsChanged.bind(this));
   }
 
-  private onChainChanged(chainInfo:ChainInfoArgs): void {
-    if(chainInfo.chainId !== this.chainInfo?.chainId){
-      this.chainInfo = chainInfo
-      this.emit('chainChanged', chainInfo)
+  private onChainChanged(chainInfo: ChainInfoArgs): void {
+    if (chainInfo.chainId !== this.chainInfo?.chainId) {
+      this.chainInfo = chainInfo;
+      this.emit("chainChanged", chainInfo);
     }
   }
 
   private onNetworkChanged(network: string): void {
-    this.emit('networkChanged', network)
+    this.emit("networkChanged", network);
   }
 
   private emitAccountsChanged(accounts: string[]): void {
-    this.emit('accountsChanged', accounts)
+    this.emit("accountsChanged", accounts);
   }
 }
-
