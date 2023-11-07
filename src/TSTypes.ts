@@ -1,14 +1,14 @@
 /**
- * code 4001 The request was rejected by the user
- * code 4300 User disconnect, need connect first
- * code -32005 Have Pending chain action
- * code -32006 Not support chain
- * code -32007 No wallet found
- * code -32008 Verify failed
- * code -32602 The parameters were invalid
- * code -32603 Internal error
- * code -32800 Unspecified error message
- * code -32900 Origin dismatch
+ * code 1001 User disconnect, need connect first
+ * code 1002 The request was rejected by the user
+ * code 20001 No wallet found
+ * code 20002 Verify failed
+ * code 20003 The parameters were invalid
+ * code 20004 Not support chain
+ * code 20005 Have Pending chain action
+ * code 21001 Internal error
+ * code 22001 Unspecified error message
+ * code 23001 Origin dismatch
  */
 export interface ProviderError extends Error {
   message: string;
