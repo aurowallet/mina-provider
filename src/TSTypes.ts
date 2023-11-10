@@ -17,41 +17,41 @@ export interface ProviderError extends Error {
   data?: unknown;
 }
 
-export type ConnectListener = (connectInfo: ConnectInfo) => void
+export type ConnectListener = (connectInfo: ConnectInfo) => void;
 
-export type ChainChangedListener = (chainInfo: ChainInfoArgs) => void
+export type ChainChangedListener = (chainInfo: ChainInfoArgs) => void;
 
-export type AccountsChangedListener = (accounts: string[]) => void
+export type AccountsChangedListener = (accounts: string[]) => void;
 
 export type ConnectInfo = {
   chainId: string;
-}
+};
 
 export type RequestArguments = {
   method: string;
   params?: unknown[] | object;
+};
+
+export interface SendPaymentArgs {
+  readonly to: string;
+  readonly amount: number;
+  readonly fee?: number;
+  readonly memo?: string;
 }
 
-export interface SendPaymentArgs  {
-  readonly to: string,
-  readonly amount: number,
-  readonly fee?: number,
-  readonly memo?:string
-}
-
-export interface SendTransactionArgs  {
-  readonly transaction: any,
+export interface SendTransactionArgs {
+  readonly transaction: string | object;
   readonly feePayer?: {
     readonly fee?: number;
     readonly memo?: string;
   };
 }
 
-export type SendStakeDelegationArgs  = {
-  readonly to: string,
-  readonly fee?: number,
-  readonly memo?:string
-}
+export type SendStakeDelegationArgs = {
+  readonly to: string;
+  readonly fee?: number;
+  readonly memo?: string;
+};
 
 export interface SignedData {
   publicKey: string;
@@ -59,55 +59,51 @@ export interface SignedData {
   signature: {
     field: string;
     scalar: string;
-  }
+  };
 }
 
 export type SignMessageArgs = {
-  readonly message: string
-}
+  readonly message: string;
+};
 
-export interface VerifyMessageArgs extends SignedData {
-
-}
+export interface VerifyMessageArgs extends SignedData {}
 
 export type SendTransactionResult = {
-  hash: string
-}
+  hash: string;
+};
 
-export type SignedFieldsData  = {
-  data: (string|number)[],
-  signature:string
-}
+export type SignedFieldsData = {
+  data: (string | number)[];
+  signature: string;
+};
 
 export type SignFieldsArguments = {
-  readonly message: (string|number)[],
-}
+  readonly message: (string | number)[];
+};
 
 export interface VerifyFieldsArguments {
-  publicKey: string,
-  data: (string|number)[],
-  signature:string
+  publicKey: string;
+  data: (string | number)[];
+  signature: string;
 }
 
-type JsonMessageData  = {
-  label:string
-  value:string
-}
+type JsonMessageData = {
+  label: string;
+  value: string;
+};
 export type SignJsonMessageArgs = {
-  readonly message: Array<JsonMessageData>
-}
+  readonly message: Array<JsonMessageData>;
+};
 
-export interface VerifyJsonMessageArgs extends VerifyMessageArgs {
-
-}
+export interface VerifyJsonMessageArgs extends VerifyMessageArgs {}
 
 export type SwitchChainArgs = {
-  readonly chainId: string
-}
+  readonly chainId: string;
+};
 
 export type CreateNullifierArgs = {
-  readonly message: bigint[]
-}
+  readonly message: bigint[];
+};
 
 export type Group = {
   x: bigint;
@@ -128,11 +124,11 @@ export type Nullifier = {
 };
 
 export type AddChainArgs = {
-  readonly url: string
-  readonly name: string
-}
+  readonly url: string;
+  readonly name: string;
+};
 
-export type ChainInfoArgs ={
-  chainId:string,
-  name:string,
-}
+export type ChainInfoArgs = {
+  chainId: string;
+  name: string;
+};
