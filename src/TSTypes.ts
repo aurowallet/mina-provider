@@ -6,6 +6,7 @@
  * code 20003 The parameters were invalid
  * code 20004 Not support chain
  * code 20005 Have Pending chain action
+ * code 20006 Method not supported.
  * code 21001 Internal error
  * code 22001 Unspecified error message
  * code 23001 Origin dismatch
@@ -31,12 +32,7 @@ export type RequestArguments = {
   params?: unknown[] | object;
 }
 
-export type BroadcastTransactionResult = {
-  hash: string
-}
-
-
-export interface SendLegacyPaymentArgs  {
+export interface SendPaymentArgs  {
   readonly to: string,
   readonly amount: number,
   readonly fee?: number,
@@ -51,7 +47,7 @@ export interface SendTransactionArgs  {
   };
 }
 
-export type SendLegacyStakeDelegationArgs  = {
+export type SendStakeDelegationArgs  = {
   readonly to: string,
   readonly fee?: number,
   readonly memo?:string
@@ -74,7 +70,9 @@ export interface VerifyMessageArgs extends SignedData {
 
 }
 
-export type SendTransactionResult = BroadcastTransactionResult;
+export type SendTransactionResult = {
+  hash: string
+}
 
 export type SignedFieldsData  = {
   data: (string|number)[],

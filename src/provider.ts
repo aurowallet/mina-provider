@@ -3,12 +3,11 @@ import Messenger from "./messager";
 import EventEmitter from "eventemitter3";
 import { DAppActions } from "./constant";
 import {
-  BroadcastTransactionResult,
   ConnectInfo,
   ProviderError,
   RequestArguments,
-  SendLegacyStakeDelegationArgs,
-  SendLegacyPaymentArgs,
+  SendStakeDelegationArgs,
+  SendPaymentArgs,
   SendTransactionArgs,
   SendTransactionResult,
   SignedData,
@@ -83,15 +82,15 @@ export default class MinaProvider
     return this.request({ method: DAppActions.mina_requestNetwork });
   }
 
-  public async sendLegacyPayment(
-    args: SendLegacyPaymentArgs
-  ): Promise<BroadcastTransactionResult | ProviderError> {
+  public async sendPayment(
+    args: SendPaymentArgs
+  ): Promise<SendTransactionResult | ProviderError> {
     return this.request({ method: DAppActions.mina_sendPayment, params: args });
   }
 
-  public async sendLegacyStakeDelegation(
-    args: SendLegacyStakeDelegationArgs
-  ): Promise<BroadcastTransactionResult | ProviderError> {
+  public async sendStakeDelegation(
+    args: SendStakeDelegationArgs
+  ): Promise<SendTransactionResult | ProviderError> {
     return this.request({
       method: DAppActions.mina_sendStakeDelegation,
       params: args,

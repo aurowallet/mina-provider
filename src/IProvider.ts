@@ -1,11 +1,10 @@
 import {
   AccountsChangedListener,
-  BroadcastTransactionResult,
   ChainChangedListener,
   ConnectListener,
   RequestArguments,
-  SendLegacyPaymentArgs,
-  SendLegacyStakeDelegationArgs,
+  SendPaymentArgs,
+  SendStakeDelegationArgs,
   SendTransactionArgs,
   SendTransactionResult,
   SignedData,
@@ -29,12 +28,12 @@ export interface IMinaProvider {
   sendTransaction(
     args: SendTransactionArgs
   ): Promise<SendTransactionResult | ProviderError>;
-  sendLegacyPayment(
-    args: SendLegacyPaymentArgs
-  ): Promise<BroadcastTransactionResult | ProviderError>;
-  sendLegacyStakeDelegation(
-    args: SendLegacyStakeDelegationArgs
-  ): Promise<BroadcastTransactionResult | ProviderError>;
+  sendPayment(
+    args: SendPaymentArgs
+  ): Promise<SendTransactionResult | ProviderError>;
+  sendStakeDelegation(
+    args: SendStakeDelegationArgs
+  ): Promise<SendTransactionResult | ProviderError>;
   signMessage(args: SignMessageArgs): Promise<SignedData | ProviderError>;
   verifyMessage(args: VerifyMessageArgs): Promise<boolean | ProviderError>;
   requestAccounts(): Promise<string[] | ProviderError>;
