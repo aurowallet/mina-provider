@@ -102,7 +102,7 @@ export type SwitchChainArgs = {
 };
 
 export type CreateNullifierArgs = {
-  readonly message: bigint[];
+  readonly message: (string | number)[];
 };
 
 export type Group = {
