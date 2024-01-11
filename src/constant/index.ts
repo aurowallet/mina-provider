@@ -40,5 +40,7 @@ export const DAppActions = {
   mina_createNullifier: "mina_createNullifier",
 
 
-  mina_addChain:"mina_addChain"
+  mina_addChain:"mina_addChain",
+
+  mina_fetchAccount:"mina_fetchAccount"
 }

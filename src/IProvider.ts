@@ -21,6 +21,9 @@ import {
   AddChainArgs,
   ChainInfoArgs,
   ProviderError,
+  FetchAccountArgs,
+  Account,
+  FetchError,
 } from "./TSTypes";
 
 export interface IMinaProvider {
@@ -57,6 +60,14 @@ export interface IMinaProvider {
 
   addChain(args: AddChainArgs): Promise<ChainInfoArgs | ProviderError>;
   switchChain(args: SwitchChainArgs): Promise<ChainInfoArgs | ProviderError>;
+
+  fetchAccount(
+    args: FetchAccountArgs
+  ): Promise<
+    | { account: Account; error: undefined }
+    | { account: undefined; error: FetchError }
+  >;
+
   // Events
   on(eventName: "chainChanged", listener: ChainChangedListener): this;
   on(eventName: "accountsChanged", listener: AccountsChangedListener): this;

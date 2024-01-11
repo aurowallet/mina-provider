@@ -23,6 +23,9 @@ import {
   Nullifier,
   AddChainArgs,
   ChainInfoArgs,
+  FetchAccountArgs,
+  FetchError,
+  Account,
 } from "./TSTypes";
 import { IMinaProvider } from "./IProvider";
 
@@ -150,6 +153,19 @@ export default class MinaProvider
       params: args,
     });
   }
+
+  public async fetchAccount(
+    args: FetchAccountArgs
+  ): Promise<
+  | { account: Account; error: undefined }
+  | { account: undefined; error: FetchError }
+  > {
+    return this.request({
+      method: DAppActions.mina_fetchAccount,
+      params: args,
+    });
+  }
+  
 
   private initEvents() {
     this.channel.on("chainChanged", this.onChainChanged.bind(this));

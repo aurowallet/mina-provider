@@ -132,3 +132,71 @@ export type ChainInfoArgs = {
   chainId: string;
   name: string;
 };
+
+export type FetchAccountArgs = {
+  publicKey: string;
+  tokenId?: string ;
+};
+
+export type FetchError = {
+  statusCode: number;
+  statusText: string;
+};
+
+type Field = string | number | bigint;
+type PublicKey = string;
+type UInt64 = number;
+type UInt32 = number;
+type Bool = boolean;
+type AuthRequired = {
+  constant: Bool;
+  signatureNecessary: Bool;
+  signatureSufficient: Bool;
+};
+type TokenId = Field;
+
+export type Account = {
+  publicKey: PublicKey;
+  tokenId: TokenId;
+  tokenSymbol: string;
+  balance: UInt64;
+  nonce: UInt32;
+  receiptChainHash: Field;
+  delegate?: PublicKey;
+  votingFor: Field;
+  timing: {
+    isTimed: Bool;
+    initialMinimumBalance: UInt64;
+    cliffTime: UInt32;
+    cliffAmount: UInt64;
+    vestingPeriod: UInt32;
+    vestingIncrement: UInt64;
+  };
+  permissions: {
+    editState: AuthRequired;
+    access: AuthRequired;
+    send: AuthRequired;
+    receive: AuthRequired;
+    setDelegate: AuthRequired;
+    setPermissions: AuthRequired;
+    setVerificationKey: AuthRequired;
+    setZkappUri: AuthRequired;
+    editActionState: AuthRequired;
+    setTokenSymbol: AuthRequired;
+    incrementNonce: AuthRequired;
+    setVotingFor: AuthRequired;
+    setTiming: AuthRequired;
+  };
+  zkapp?: {
+    appState: Field[];
+    verificationKey?: {
+      data: string;
+      hash: Field;
+    };
+    zkappVersion: UInt32;
+    actionState: Field[];
+    lastActionSlot: UInt32;
+    provedState: Bool;
+    zkappUri: string;
+  };
+};
