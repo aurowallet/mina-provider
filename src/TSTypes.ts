@@ -138,10 +138,7 @@ export type FetchAccountArgs = {
   tokenId?: string ;
 };
 
-export type FetchError = {
-  statusCode: number;
-  statusText: string;
-};
+export type FetchError = Omit<ProviderError, 'data'>
 
 type Field = string | number | bigint;
 type PublicKey = string;
