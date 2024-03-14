@@ -74,6 +74,7 @@ export type SendTransactionResult = {
 
 export type SignedFieldsData = {
   data: (string | number)[];
+  publicKey:string;
   signature: string;
 };
 
