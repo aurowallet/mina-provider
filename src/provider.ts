@@ -23,6 +23,7 @@ import {
   Nullifier,
   AddChainArgs,
   ChainInfoArgs,
+  SendZkTransactionResult,
 } from "./TSTypes";
 import { IMinaProvider } from "./IProvider";
 
@@ -48,7 +49,7 @@ export default class MinaProvider
 
   public async sendTransaction(
     args: SendTransactionArgs
-  ): Promise<SendTransactionResult | ProviderError> {
+  ): Promise<SendZkTransactionResult | ProviderError> {
     return this.request({
       method: DAppActions.mina_sendTransaction,
       params: args,

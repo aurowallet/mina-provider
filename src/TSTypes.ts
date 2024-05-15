@@ -69,17 +69,20 @@ export type SignMessageArgs = {
 
 export interface VerifyMessageArgs extends SignedData {}
 
-export type SendTransactionResult =
-  | {
-      hash: string;
-    }
-  | {
-      signedData: string; // Results of JSON.stringify(ZkappCommand)
-    };
+export type SendTransactionHash = {
+  hash: string;
+};
+export type SignedZkappCommand = {
+  signedData: string; // Results of JSON.stringify(ZkappCommand)
+};
+
+export type SendTransactionResult = SendTransactionHash
+
+export type SendZkTransactionResult = SendTransactionResult | SignedZkappCommand
 
 export type SignedFieldsData = {
   data: (string | number)[];
-  publicKey: string;
+  publicKey:string;
   signature: string;
 };
 

@@ -21,13 +21,14 @@ import {
   AddChainArgs,
   ChainInfoArgs,
   ProviderError,
+  SendZkTransactionResult,
 } from "./TSTypes";
 
 export interface IMinaProvider {
   request(args: RequestArguments): Promise<unknown>;
   sendTransaction(
     args: SendTransactionArgs
-  ): Promise<SendTransactionResult | ProviderError>;
+  ): Promise<SendZkTransactionResult | ProviderError>;
   sendPayment(
     args: SendPaymentArgs
   ): Promise<SendTransactionResult | ProviderError>;
