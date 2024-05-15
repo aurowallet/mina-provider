@@ -44,7 +44,7 @@ export function getSiteIcon(windowObject: typeof window) {
     const biggerIcon = getMaxSizeIcon(list);
     return biggerIcon.href;
   }
-  return null;
+  return "";
 }
 
 function getIconSize(sizes: string) {
