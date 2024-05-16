@@ -73,7 +73,7 @@ export type SendTransactionHash = {
   hash: string;
 };
 export type SignedZkappCommand = {
-  signedData: string; // Results of JSON.stringify(ZkappCommand)
+  signedData: string; // Results of JSON.stringify( signZkappCommand().data )
 };
 
 export type SendTransactionResult = SendTransactionHash
