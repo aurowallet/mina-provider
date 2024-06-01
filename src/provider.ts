@@ -3,7 +3,6 @@ import Messenger from "./messager";
 import EventEmitter from "eventemitter3";
 import { DAppActions } from "./constant";
 import {
-  ConnectInfo,
   ProviderError,
   RequestArguments,
   SendStakeDelegationArgs,
@@ -159,7 +158,7 @@ export default class MinaProvider
   }
 
   private onChainChanged(chainInfo: ChainInfoArgs): void {
-    if (chainInfo.chainId !== this.chainInfo?.chainId) {
+    if (chainInfo.networkID !== this.chainInfo?.networkID) {
       this.chainInfo = chainInfo;
       this.emit("chainChanged", chainInfo);
     }

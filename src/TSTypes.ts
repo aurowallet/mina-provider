@@ -17,15 +17,11 @@ export interface ProviderError extends Error {
   data?: unknown;
 }
 
-export type ConnectListener = (connectInfo: ConnectInfo) => void;
+export type ConnectListener = (connectInfo: ChainInfoArgs) => void;
 
 export type ChainChangedListener = (chainInfo: ChainInfoArgs) => void;
 
 export type AccountsChangedListener = (accounts: string[]) => void;
-
-export type ConnectInfo = {
-  chainId: string;
-};
 
 export type RequestArguments = {
   method: string;
@@ -107,7 +103,7 @@ export type SignJsonMessageArgs = {
 export interface VerifyJsonMessageArgs extends VerifyMessageArgs {}
 
 export type SwitchChainArgs = {
-  readonly chainId: string;
+  readonly networkID: string;
 };
 
 export type CreateNullifierArgs = {
@@ -138,6 +134,5 @@ export type AddChainArgs = {
 };
 
 export type ChainInfoArgs = {
-  chainId: string;
-  name: string;
+  networkID: string;
 };
