@@ -33,10 +33,12 @@ export interface SendPaymentArgs {
   readonly amount: number;
   readonly fee?: number;
   readonly memo?: string;
+  readonly nonce?: number;
 }
 
 export interface SendTransactionArgs {
   readonly onlySign?: boolean;
+  readonly nonce?: number;
   readonly transaction: string | object;
   readonly feePayer?: {
     readonly fee?: number;
@@ -48,6 +50,7 @@ export type SendStakeDelegationArgs = {
   readonly to: string;
   readonly fee?: number;
   readonly memo?: string;
+  readonly nonce?: number;
 };
 
 export interface SignedData {
