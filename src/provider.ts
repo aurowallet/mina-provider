@@ -23,6 +23,7 @@ import {
   AddChainArgs,
   ChainInfoArgs,
   SendZkTransactionResult,
+  IWalletInfo,
 } from "./TSTypes";
 import { IMinaProvider } from "./IProvider";
 
@@ -149,6 +150,10 @@ export default class MinaProvider
       method: DAppActions.mina_createNullifier,
       params: args,
     });
+  }
+  public async getWalletInfo(
+  ): Promise<IWalletInfo> {
+    return this.request({ method: DAppActions.wallet_info });
   }
 
   private initEvents() {

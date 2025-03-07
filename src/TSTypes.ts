@@ -75,13 +75,15 @@ export type SignedZkappCommand = {
   signedData: string; // Results of JSON.stringify( signZkappCommand().data )
 };
 
-export type SendTransactionResult = SendTransactionHash
+export type SendTransactionResult = SendTransactionHash;
 
-export type SendZkTransactionResult = SendTransactionResult | SignedZkappCommand
+export type SendZkTransactionResult =
+  | SendTransactionResult
+  | SignedZkappCommand;
 
 export type SignedFieldsData = {
   data: (string | number)[];
-  publicKey:string;
+  publicKey: string;
   signature: string;
 };
 
@@ -138,4 +140,9 @@ export type AddChainArgs = {
 
 export type ChainInfoArgs = {
   networkID: string;
+};
+
+export type IWalletInfo = {
+  version: string;
+  init: boolean;
 };

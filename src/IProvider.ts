@@ -22,6 +22,7 @@ import {
   ChainInfoArgs,
   ProviderError,
   SendZkTransactionResult,
+  IWalletInfo,
 } from "./TSTypes";
 
 export interface IMinaProvider {
@@ -70,4 +71,5 @@ export interface IMinaProvider {
     eventName: "accountsChanged",
     listener: AccountsChangedListener
   ): this;
+  getWalletInfo():Promise<IWalletInfo>
 }
