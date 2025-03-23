@@ -70,6 +70,7 @@ export interface VerifyMessageArgs extends SignedData {}
 
 export type SendTransactionHash = {
   hash: string;
+  paymentId?: string;
 };
 export type SignedZkappCommand = {
   signedData: string; // Results of JSON.stringify( signZkappCommand().data )
