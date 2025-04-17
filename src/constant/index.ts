@@ -35,12 +35,15 @@ export const DAppActions = {
   // verify Json message
   mina_verify_JsonMessage: "mina_verify_JsonMessage",
 
-  mina_switchChain:"mina_switchChain",
+  mina_switchChain: "mina_switchChain",
 
   mina_createNullifier: "mina_createNullifier",
 
+  mina_addChain: "mina_addChain",
 
-  mina_addChain:"mina_addChain",
+  wallet_info: "wallet_info",
 
-  wallet_info:"wallet_info",
-}
+  mina_storePrivateCredential: "mina_storePrivateCredential",
+
+  mina_requestPresentation: "mina_requestPresentation",
+};

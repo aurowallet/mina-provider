@@ -24,6 +24,10 @@ import {
   ChainInfoArgs,
   SendZkTransactionResult,
   IWalletInfo,
+  StoredCredentialArgs,
+  IStoreCredentialData,
+  PresentationArgs,
+  IRequestPresentation,
 } from "./TSTypes";
 import { IMinaProvider } from "./IProvider";
 
@@ -154,6 +158,24 @@ export default class MinaProvider
   public async getWalletInfo(
   ): Promise<IWalletInfo> {
     return this.request({ method: DAppActions.wallet_info });
+  }
+
+  public async storePrivateCredential(
+    args: StoredCredentialArgs
+  ): Promise<IStoreCredentialData | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_storePrivateCredential,
+      params: args,
+    });
+  }
+
+  public async requestPresentation(
+    args: PresentationArgs
+  ): Promise<IRequestPresentation | ProviderError> {
+    return this.request({
+      method: DAppActions.mina_requestPresentation,
+      params: args,
+    });
   }
 
   private initEvents() {

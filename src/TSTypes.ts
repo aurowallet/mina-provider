@@ -147,3 +147,57 @@ export type IWalletInfo = {
   version: string;
   init: boolean;
 };
+
+
+type JSONValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JSONValue[]
+  | { [key: string]: JSONValue };
+
+
+type Credential<Data = unknown> = { owner: string; data: Data };
+/**
+ * Credential in stored form, including the witness and metadata.
+ */
+type StoredCredential<Data = unknown, Witness = unknown> = {
+  version: 'v0';
+  witness: Witness;
+  metadata: JSONValue | undefined;
+  credential: Credential<Data>;
+};
+
+export type StoredCredentialArgs = {
+  credential:StoredCredential
+}
+export type IStoreCredentialData = {
+  credential: string;
+};
+
+
+type PresentationRequestType = 'no-context' | 'zk-app' | 'https';
+type PresentationRequest<
+  RequestType extends PresentationRequestType = PresentationRequestType,
+  InputContext = any,
+> = {
+  type: RequestType;
+  spec: any;
+  claims: any;
+  inputContext: InputContext;
+  program?: unknown;
+  verificationKey?: unknown;
+};
+
+type IPresentationRequest = {
+  presentationRequest:PresentationRequest
+}
+
+export type PresentationArgs = {
+  presentation:IPresentationRequest
+}
+
+export type IRequestPresentation = {
+  presentation: string;
+};

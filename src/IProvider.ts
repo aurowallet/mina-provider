@@ -23,6 +23,10 @@ import {
   ProviderError,
   SendZkTransactionResult,
   IWalletInfo,
+  StoredCredentialArgs,
+  PresentationArgs,
+  IStoreCredentialData,
+  IRequestPresentation,
 } from "./TSTypes";
 
 export interface IMinaProvider {
@@ -56,6 +60,14 @@ export interface IMinaProvider {
   createNullifier(
     args: CreateNullifierArgs
   ): Promise<Nullifier | ProviderError>;
+
+  storePrivateCredential(
+    args: StoredCredentialArgs
+  ): Promise<IStoreCredentialData | ProviderError>;
+  
+  requestPresentation(
+    args: PresentationArgs
+  ): Promise<IRequestPresentation | ProviderError>;
 
   addChain(args: AddChainArgs): Promise<ChainInfoArgs | ProviderError>;
   switchChain(args: SwitchChainArgs): Promise<ChainInfoArgs | ProviderError>;
