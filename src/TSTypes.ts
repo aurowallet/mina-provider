@@ -192,6 +192,7 @@ type PresentationRequest<
 
 type IPresentationRequest = {
   presentationRequest:PresentationRequest
+  zkAppAccount?:any // used for type zk-app
 }
 
 export type PresentationArgs = {
