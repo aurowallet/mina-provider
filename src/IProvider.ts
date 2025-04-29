@@ -43,6 +43,7 @@ export interface IMinaProvider {
   signMessage(args: SignMessageArgs): Promise<SignedData | ProviderError>;
   verifyMessage(args: VerifyMessageArgs): Promise<boolean | ProviderError>;
   requestAccounts(): Promise<string[] | ProviderError>;
+  getAccounts(): Promise<string[]>;
   requestNetwork(): Promise<ChainInfoArgs>;
 
   signFields(
