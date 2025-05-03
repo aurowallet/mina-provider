@@ -155,8 +155,7 @@ export default class MinaProvider
       params: args,
     });
   }
-  public async getWalletInfo(
-  ): Promise<IWalletInfo> {
+  public async getWalletInfo(): Promise<IWalletInfo> {
     return this.request({ method: DAppActions.wallet_info });
   }
 
@@ -175,6 +174,12 @@ export default class MinaProvider
     return this.request({
       method: DAppActions.mina_requestPresentation,
       params: args,
+    });
+  }
+
+  public revokePermissions(): Promise<Array<string>> {
+    return this.request({
+      method: DAppActions.wallet_revokePermissions,
     });
   }
 

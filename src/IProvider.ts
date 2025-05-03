@@ -70,6 +70,8 @@ export interface IMinaProvider {
     args: PresentationArgs
   ): Promise<IRequestPresentation | ProviderError>;
 
+  revokePermissions(): Promise<Array<string>>;
+
   addChain(args: AddChainArgs): Promise<ChainInfoArgs | ProviderError>;
   switchChain(args: SwitchChainArgs): Promise<ChainInfoArgs | ProviderError>;
   // Events

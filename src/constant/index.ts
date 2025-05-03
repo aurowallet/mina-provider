@@ -46,4 +46,6 @@ export const DAppActions = {
   mina_storePrivateCredential: "mina_storePrivateCredential",
 
   mina_requestPresentation: "mina_requestPresentation",
+
+  wallet_revokePermissions: "wallet_revokePermissions",
 };

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.12]
+- Add wallet_revokePermissions
+
 ## [1.0.9]
 - Add mina_storePrivateCredential
 - Add mina_requestPresentation
