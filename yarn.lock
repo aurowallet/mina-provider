@@ -2,14 +2,7 @@
 # yarn lockfile v1
 
 
-"@types/eventemitter3@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@types/eventemitter3/-/eventemitter3-2.0.2.tgz#94b57c2568c4f09479d64812f625317b12a6edd0"
-  integrity sha1-lLV8JWjE8JR51kgS9iUxexKm7dA=
-  dependencies:
-    eventemitter3 "*"
-
-eventemitter3@*, eventemitter3@^4.0.7:
+eventemitter3@^4.0.7:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
