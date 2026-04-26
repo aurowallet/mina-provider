@@ -39,6 +39,9 @@ export default class MinaProvider
   private readonly messenger: Messenger;
   public readonly isAuro: boolean = true;
   private chainInfo: ChainInfoArgs;
+  private readonly handleChainChanged = this.onChainChanged.bind(this);
+  private readonly handleNetworkChanged = this.onNetworkChanged.bind(this);
+  private readonly handleAccountsChanged = this.emitAccountsChanged.bind(this);
 
   constructor() {
     super();
@@ -183,10 +186,19 @@ export default class MinaProvider
     });
   }
 
+  public destroy(): void {
+    this.channel.removeListener("chainChanged", this.handleChainChanged);
+    this.channel.removeListener("networkChanged", this.handleNetworkChanged);
+    this.channel.removeListener("accountsChanged", this.handleAccountsChanged);
+    this.messenger.destroy();
+    this.channel.destroy();
+    this.removeAllListeners();
+  }
+
   private initEvents() {
-    this.channel.on("chainChanged", this.onChainChanged.bind(this));
-    this.channel.on("networkChanged", this.onNetworkChanged.bind(this));
-    this.channel.on("accountsChanged", this.emitAccountsChanged.bind(this));
+    this.channel.on("chainChanged", this.handleChainChanged);
+    this.channel.on("networkChanged", this.handleNetworkChanged);
+    this.channel.on("accountsChanged", this.handleAccountsChanged);
   }
 
   private onChainChanged(chainInfo: ChainInfoArgs): void {

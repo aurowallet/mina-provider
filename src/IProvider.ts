@@ -2,6 +2,7 @@ import {
   AccountsChangedListener,
   ChainChangedListener,
   ConnectListener,
+  NetworkChangedListener,
   RequestArguments,
   SendPaymentArgs,
   SendStakeDelegationArgs,
@@ -77,6 +78,7 @@ export interface IMinaProvider {
   // Events
   on(eventName: "chainChanged", listener: ChainChangedListener): this;
   on(eventName: "accountsChanged", listener: AccountsChangedListener): this;
+  on(eventName: "networkChanged", listener: NetworkChangedListener): this;
 
   removeListener(
     eventName: "chainChanged",
@@ -85,6 +87,10 @@ export interface IMinaProvider {
   removeListener(
     eventName: "accountsChanged",
     listener: AccountsChangedListener
+  ): this;
+  removeListener(
+    eventName: "networkChanged",
+    listener: NetworkChangedListener
   ): this;
   getWalletInfo():Promise<IWalletInfo>
 }

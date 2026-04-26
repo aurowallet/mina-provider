@@ -19,6 +19,8 @@ export interface ProviderError extends Error {
 
 export type ConnectListener = (connectInfo: ChainInfoArgs) => void;
 
+export type NetworkChangedListener = (network: string) => void;
+
 export type ChainChangedListener = (chainInfo: ChainInfoArgs) => void;
 
 export type AccountsChangedListener = (accounts: string[]) => void;

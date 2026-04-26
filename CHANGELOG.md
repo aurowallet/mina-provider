@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.13]
+- Fix audit
+
 ## [1.0.12]
 - Add wallet_revokePermissions
 

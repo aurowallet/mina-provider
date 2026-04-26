@@ -14,7 +14,8 @@
       "scripthost",
       "es2015.promise"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",
